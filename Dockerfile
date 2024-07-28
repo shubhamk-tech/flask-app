@@ -1,6 +1,15 @@
-FROM python:3.6
-COPY . /app
+FROM python:3.9-slim
+
 WORKDIR /app
-EXPOSE 5000
+
+COPY requirements.txt .
+
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python", "app.py"]
+
+COPY . .
+
+EXPOSE 5000
+
+ENV NAME World
+
+CMD ["python", "app.py"]
