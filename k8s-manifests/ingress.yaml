@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "production-app"
+spec:
+  tls:
+  - hosts:
+    - demo.shubhamk.online
+    secretName: flask
+  ingressClassName: nginx
+  rules:
+  - host: demo.shubhamk.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: flask-service
+            port:
+              number: 5000	
