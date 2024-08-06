@@ -8,6 +8,7 @@ pipeline {
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
+    
     stages {
         stage('Checkout from SCM') {
             steps {
@@ -42,6 +43,7 @@ pipeline {
             }
         }
     }
+    
     post {
         always {
             emailext attachLog: true,
@@ -49,7 +51,7 @@ pipeline {
                 body: "Project: ${env.JOB_NAME}<br/>" +
                     "Build Number: ${env.BUILD_NUMBER}<br/>" +
                      "URL: ${env.BUILD_URL}<br/>",
-                to: 'shubhkal01@gmail.com',                              
+                to: 'shubhkal01@gmail.com'                             
         }
     }
 }
